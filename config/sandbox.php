@@ -1,5 +1,10 @@
 <?php
 
+/*
+ * Sandbox — Spielwiese fuer den autonomen Worker.
+ * Leeres Modul-Grundgeruest zum Experimentieren; nicht fuer Produktiv-Features.
+ */
+
 return [
     'name' => 'Sandbox',
     'description' => 'Sandbox — leeres Modul-Grundgeruest (Spielwiese fuer den autonomen Worker)',
