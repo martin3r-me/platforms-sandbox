@@ -1,0 +1,30 @@
+{
+    "name": "martin3r/platform-sandbox",
+    "description": "Sandbox Management Module for Platform (Kotter 8-Step Model)",
+    "type": "library",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Platform Team",
+            "email": "team@platform.com"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "Platform\\Sandbox\\": "src/",
+            "Platform\\Sandbox\\Database\\": "database/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Platform\\Sandbox\\SandboxServiceProvider"
+            ]
+        }
+    },
+    "require": {
+        "martin3r/platform-organization": "*"
+    },
+    "minimum-stability": "dev",
+    "prefer-stable": true
+}
