@@ -12,6 +12,10 @@
             @svg('heroicon-o-academic-cap', 'w-4 h-4')
             <span>Kotter Guide</span>
         </a>
+        <a href="{{ route('sandbox.hallo-welt') }}" wire:navigate class="flex items-center gap-2.5 px-3 py-1.5 rounded-md text-[13px] text-[color:var(--nx-faint)] hover:bg-[var(--nx-text)] hover:text-white transition-colors">
+            @svg('heroicon-o-hand-raised', 'w-4 h-4')
+            <span>Hallo Welt</span>
+        </a>
     </div>
 
     {{-- Collapsed View --}}
@@ -22,6 +26,9 @@
             </a>
             <a href="{{ route('sandbox.kotter') }}" wire:navigate class="flex items-center justify-center p-2 rounded-md text-[color:var(--nx-muted)] hover:text-white hover:bg-[var(--nx-text)] transition-colors" title="Kotter Guide">
                 @svg('heroicon-o-academic-cap', 'w-5 h-5')
+            </a>
+            <a href="{{ route('sandbox.hallo-welt') }}" wire:navigate class="flex items-center justify-center p-2 rounded-md text-[color:var(--nx-muted)] hover:text-white hover:bg-[var(--nx-text)] transition-colors" title="Hallo Welt">
+                @svg('heroicon-o-hand-raised', 'w-5 h-5')
             </a>
         </div>
     </div>
