@@ -1,16 +1,4 @@
 <?php
 
-namespace Platform\Sandbox\Livewire\SandboxProject;
-
-use Livewire\Component;
-use Platform\Sandbox\Enums\SandboxPhaseNumber;
-
-class KotterGuide extends Component
-{
-    public function render()
-    {
-        return view('sandbox::livewire.sandbox-project.kotter-guide', [
-            'phases' => SandboxPhaseNumber::cases(),
-        ])->layout('platform::layouts.app');
-    }
-}
+// Kotter-Domaene aus dem sandbox-Modul entfernt (Rueckbau auf leeres Grundgeruest).
+// Datei ist leer und kann per `git rm` entfernt werden.
