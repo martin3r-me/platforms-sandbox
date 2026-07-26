@@ -2,7 +2,6 @@
 
 namespace Platform\Sandbox;
 
-use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\Str;
@@ -16,23 +15,12 @@ class SandboxServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        // Config laden (Laravel Best Practice: in register())
+        $this->mergeConfigFrom(__DIR__.'/../config/sandbox.php', 'sandbox');
     }
 
     public function boot(): void
     {
-        // Morph-Map
-        Relation::morphMap([
-            'sandbox_project'     => \Platform\Sandbox\Models\SandboxProject::class,
-            'sandbox_phase'       => \Platform\Sandbox\Models\SandboxPhase::class,
-            'sandbox_action'      => \Platform\Sandbox\Models\SandboxAction::class,
-            'sandbox_stakeholder' => \Platform\Sandbox\Models\SandboxStakeholder::class,
-            'sandbox_log'         => \Platform\Sandbox\Models\SandboxLog::class,
-        ]);
-
-        // Config laden
-        $this->mergeConfigFrom(__DIR__.'/../config/sandbox.php', 'sandbox');
-
         // Modul registrieren
         if (
             config()->has('sandbox.routing') &&
@@ -68,23 +56,6 @@ class SandboxServiceProvider extends ServiceProvider
         // Views & Livewire
         $this->loadViewsFrom(__DIR__ . '/../resources/views', 'sandbox');
         $this->registerLivewireComponents();
-
-        // Tools registrieren
-        $this->registerTools();
-
-        // EntityLinkProvider registrieren (loose Kopplung mit Organization-Modul)
-        try {
-            resolve(\Platform\Organization\Services\EntityLinkRegistry::class)
-                ->register(new \Platform\Sandbox\Organization\SandboxEntityLinkProvider());
-        } catch (\Throwable $e) {
-            // Organization-Modul nicht geladen
-        }
-
-        // Error Reporter
-        try {
-            resolve(\Platform\Core\Services\ErrorReporterRegistry::class)
-                ->register('sandbox', 'Platform\\Sandbox');
-        } catch (\Throwable $e) {}
     }
 
     protected function registerLivewireComponents(): void
@@ -118,48 +89,6 @@ class SandboxServiceProvider extends ServiceProvider
             $alias = $prefix . '.' . $aliasPath;
 
             Livewire::component($alias, $class);
-        }
-    }
-
-    protected function registerTools(): void
-    {
-        try {
-            $registry = resolve(\Platform\Core\Tools\ToolRegistry::class);
-
-            // SandboxProject CRUD
-            $registry->register(new \Platform\Sandbox\Tools\ListSandboxProjectsTool());
-            $registry->register(new \Platform\Sandbox\Tools\CreateSandboxProjectTool());
-            $registry->register(new \Platform\Sandbox\Tools\UpdateSandboxProjectTool());
-            $registry->register(new \Platform\Sandbox\Tools\DeleteSandboxProjectTool());
-
-            // SandboxPhase
-            $registry->register(new \Platform\Sandbox\Tools\ListSandboxPhasesTool());
-            $registry->register(new \Platform\Sandbox\Tools\UpdateSandboxPhaseTool());
-
-            // SandboxStakeholder CRUD
-            $registry->register(new \Platform\Sandbox\Tools\ListSandboxStakeholdersTool());
-            $registry->register(new \Platform\Sandbox\Tools\CreateSandboxStakeholderTool());
-            $registry->register(new \Platform\Sandbox\Tools\UpdateSandboxStakeholderTool());
-            $registry->register(new \Platform\Sandbox\Tools\DeleteSandboxStakeholderTool());
-
-            // SandboxAction CRUD
-            $registry->register(new \Platform\Sandbox\Tools\ListSandboxActionsTool());
-            $registry->register(new \Platform\Sandbox\Tools\CreateSandboxActionTool());
-            $registry->register(new \Platform\Sandbox\Tools\UpdateSandboxActionTool());
-            $registry->register(new \Platform\Sandbox\Tools\DeleteSandboxActionTool());
-
-            // SandboxLog CRUD
-            $registry->register(new \Platform\Sandbox\Tools\ListSandboxLogsTool());
-            $registry->register(new \Platform\Sandbox\Tools\CreateSandboxLogTool());
-            $registry->register(new \Platform\Sandbox\Tools\UpdateSandboxLogTool());
-            $registry->register(new \Platform\Sandbox\Tools\DeleteSandboxLogTool());
-
-            // Analytics
-            $registry->register(new \Platform\Sandbox\Tools\GetSandboxProgressTool());
-            $registry->register(new \Platform\Sandbox\Tools\GetSandboxBoardTool());
-
-        } catch (\Throwable $e) {
-            \Log::warning('Sandbox: Tool-Registrierung fehlgeschlagen', ['error' => $e->getMessage()]);
         }
     }
 }

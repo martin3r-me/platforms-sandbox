@@ -2,10 +2,8 @@
 
 return [
     'name' => 'Sandbox',
-    'description' => 'Sandbox — Spielwiese fuer den autonomen Worker',
+    'description' => 'Sandbox — leeres Modul-Grundgeruest (Spielwiese fuer den autonomen Worker)',
     'version' => '1.0.0',
-
-    'scope_type' => 'parent',
 
     'routing' => [
         'prefix' => 'sandbox',
@@ -18,5 +16,18 @@ return [
         'route' => 'sandbox.dashboard',
         'icon'  => 'heroicon-o-beaker',
         'order' => 50,
+    ],
+
+    'sidebar' => [
+        [
+            'group' => 'Allgemein',
+            'items' => [
+                [
+                    'label' => 'Dashboard',
+                    'route' => 'sandbox.dashboard',
+                    'icon'  => 'heroicon-o-home',
+                ],
+            ],
+        ],
     ],
 ];

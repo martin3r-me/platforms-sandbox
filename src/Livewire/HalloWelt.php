@@ -1,14 +1,4 @@
 <?php
 
-namespace Platform\Sandbox\Livewire;
-
-use Livewire\Component;
-
-class HalloWelt extends Component
-{
-    public function render()
-    {
-        return view('sandbox::livewire.hallo-welt')
-            ->layout('platform::layouts.app');
-    }
-}
+// Beispielseite entfernt (Rueckbau auf leeres Grundgeruest — Dashboard ist die Startseite).
+// Datei ist leer und kann per `git rm` entfernt werden.
