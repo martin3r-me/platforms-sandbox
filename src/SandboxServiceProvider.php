@@ -29,7 +29,7 @@ class SandboxServiceProvider extends ServiceProvider
             PlatformCore::registerModule([
                 'key'        => 'sandbox',
                 'title'      => 'Sandbox',
-                'group'      => 'admin',
+                'group'      => 'dev',
                 'routing'    => config('sandbox.routing'),
                 'guard'      => config('sandbox.guard'),
                 'navigation' => config('sandbox.navigation'),
